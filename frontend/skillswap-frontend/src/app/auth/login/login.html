@@ -1,3 +1,11 @@
 <h2>Login</h2>
-<p>This is the login page</p>
-<a routerLink="/register">Go to Register</a>
+
+<form [formGroup]="loginForm" (ngSubmit)="submit()">
+  <input type="email" placeholder="Email" formControlName="email" />
+  <br /><br />
+  <input type="password" placeholder="Password" formControlName="password" />
+  <br /><br />
+  <button type="submit" [disabled]="loginForm.invalid">
+    Login
+  </button>
+</form>
