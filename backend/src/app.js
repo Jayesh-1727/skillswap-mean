@@ -20,4 +20,7 @@ app.use('/api/profile', profileRoutes);
 const discoveryRoutes = require('./routes/discoveryRoutes');
 app.use('/api/discovery', discoveryRoutes);
 
+const sessionRoutes = require('./routes/sessionRoutes');
+app.use('/api/sessions', sessionRoutes);
+
 module.exports = app;
