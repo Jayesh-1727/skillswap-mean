@@ -38,7 +38,10 @@ skillsLearn: [
     skill: { type: mongoose.Schema.Types.ObjectId, ref: 'Skill' }
   }
 ],
-
+rating: {
+  type: Number,
+  default: 0
+}
 }, { timestamps: true });
 
 module.exports = mongoose.model('User', userSchema);

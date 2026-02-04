@@ -1,5 +1,6 @@
 const SessionRequest = require('../models/SessionRequest');
 const Skill = require('../models/Skill');
+const User = require('../models/User');
 
 exports.sendRequest = async (req, res) => {
   try {
@@ -52,3 +53,66 @@ exports.updateRequestStatus = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+exports.completeSession = async (req, res) => {
+  try {
+    const session = await SessionRequest.findById(req.params.id);
+
+    if (!session) {
+      return res.status(404).json({ message: 'Session not found' });
+    }
+
+    if (session.teacher.toString() !== req.user.id) {
+      return res.status(403).json({ message: 'Only teacher can complete session' });
+    }
+
+    session.status = 'completed';
+    await session.save();
+
+    res.json({ message: 'Session marked as completed' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+exports.addFeedback = async (req, res) => {
+  try {
+    const { rating, review } = req.body;
+
+    const session = await SessionRequest.findById(req.params.id);
+
+    if (!session) {
+      return res.status(404).json({ message: 'Session not found' });
+    }
+
+    if (session.learner.toString() !== req.user.id) {
+      return res.status(403).json({ message: 'Only learner can give feedback' });
+    }
+
+    if (session.status !== 'completed') {
+      return res.status(400).json({ message: 'Session not completed yet' });
+    }
+
+    session.rating = rating;
+    session.review = review;
+    await session.save();
+
+    const sessions = await SessionRequest.find({
+  teacher: session.teacher,
+  rating: { $exists: true }
+});
+
+const avgRating =
+  sessions.reduce((sum, s) => sum + s.rating, 0) / sessions.length;
+
+await User.findByIdAndUpdate(session.teacher, {
+  rating: avgRating.toFixed(1)
+});
+
+    res.json({ message: 'Feedback submitted' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+
