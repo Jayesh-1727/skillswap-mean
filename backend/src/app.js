@@ -23,4 +23,7 @@ app.use('/api/discovery', discoveryRoutes);
 const sessionRoutes = require('./routes/sessionRoutes');
 app.use('/api/sessions', sessionRoutes);
 
+const messageRoutes = require('./routes/messageRoutes');
+app.use('/api/messages', messageRoutes);
+
 module.exports = app;
