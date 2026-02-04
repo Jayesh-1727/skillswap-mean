@@ -26,7 +26,19 @@ const userSchema = new mongoose.Schema({
   availability: {
     type: String,
     default: ''
+  },
+  skillsTeach: [
+  {
+    skill: { type: mongoose.Schema.Types.ObjectId, ref: 'Skill' },
+    level: { type: String, enum: ['beginner', 'intermediate', 'expert'] }
   }
+],
+skillsLearn: [
+  {
+    skill: { type: mongoose.Schema.Types.ObjectId, ref: 'Skill' }
+  }
+],
+
 }, { timestamps: true });
 
 module.exports = mongoose.model('User', userSchema);

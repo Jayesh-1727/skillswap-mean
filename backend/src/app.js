@@ -14,4 +14,7 @@ app.get('/', (req, res) => {
   res.send('SkillSwap API is running');
 });
 
+const profileRoutes = require('./routes/profileRoutes');
+app.use('/api/profile', profileRoutes);
+
 module.exports = app;
