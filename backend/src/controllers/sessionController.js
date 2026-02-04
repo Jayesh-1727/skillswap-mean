@@ -6,6 +6,32 @@ exports.sendRequest = async (req, res) => {
   try {
     const { teacherId, skillId } = req.body;
 
+    // Limit pending requests
+    const pendingCount = await SessionRequest.countDocuments({
+      learner: req.user.id,
+      status: 'pending'
+    });
+
+    if (pendingCount >= 3) {
+      return res.status(400).json({
+        message: 'You already have 3 pending requests'
+      });
+    }
+
+    // Prevent duplicate request
+    const existingRequest = await SessionRequest.findOne({
+      learner: req.user.id,
+      teacher: teacherId,
+      skill: skillId,
+      status: { $in: ['pending', 'accepted'] }
+    });
+
+    if (existingRequest) {
+      return res.status(400).json({
+        message: 'Request already exists for this skill and teacher'
+      });
+    }
+
     const request = await SessionRequest.create({
       learner: req.user.id,
       teacher: teacherId,
@@ -17,6 +43,7 @@ exports.sendRequest = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
 
 exports.getTeacherRequests = async (req, res) => {
   try {
@@ -115,4 +142,24 @@ await User.findByIdAndUpdate(session.teacher, {
   }
 };
 
+exports.getSessionHistory = async (req, res) => {
+  try {
+    const userId = req.user.id;
 
+    const sessions = await SessionRequest.find({
+      $or: [
+        { learner: userId },
+        { teacher: userId }
+      ],
+      status: { $in: ['completed', 'rejected'] }
+    })
+      .populate('learner', 'name')
+      .populate('teacher', 'name')
+      .populate('skill', 'name')
+      .sort({ updatedAt: -1 });
+
+    res.json(sessions);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
