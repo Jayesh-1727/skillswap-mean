@@ -17,4 +17,7 @@ app.get('/', (req, res) => {
 const profileRoutes = require('./routes/profileRoutes');
 app.use('/api/profile', profileRoutes);
 
+const discoveryRoutes = require('./routes/discoveryRoutes');
+app.use('/api/discovery', discoveryRoutes);
+
 module.exports = app;
