@@ -39,3 +39,54 @@ exports.addLearnSkill = async (req, res) => {
 
   res.json({ message: 'Learn skill added' });
 };
+
+exports.getMyProfile = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id)
+      .populate('skillsTeach.skill')
+      .populate('skillsLearn.skill');
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    res.json({
+  name: user.name,
+  email: user.email,
+  role: user.role,
+  bio: user.bio,
+  availability: user.availability,
+  skillsTeach: user.skillsTeach,
+  skillsLearn: user.skillsLearn
+});
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Failed to fetch profile' });
+  }
+};
+
+exports.updateMyProfile = async (req, res) => {
+  try {
+    const { bio, availability } = req.body;
+
+    const user = await User.findByIdAndUpdate(
+      req.user.id,
+      { bio, availability },
+      { new: true }
+    );
+
+    res.json({
+      message: 'Profile updated successfully',
+      bio: user.bio,
+      availability: user.availability
+    });
+  } catch (error) {
+    res.status(500).json({ message: 'Failed to update profile' });
+  }
+};
+
+
+
+
+

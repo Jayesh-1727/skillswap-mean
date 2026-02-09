@@ -1,0 +1,67 @@
+<h2>My Profile</h2>
+
+<!-- Display Info -->
+<div *ngIf="user && user.name">
+  <p><strong>Name:</strong> {{ user?.name }}</p>
+  <p><strong>Email:</strong> {{ user?.email }}</p>
+</div>
+
+<hr />
+
+<!-- Edit Form -->
+<form [formGroup]="editForm" (ngSubmit)="save()">
+  <h3>Edit Profile</h3>
+
+  <label>Bio</label><br />
+  <textarea formControlName="bio"></textarea><br /><br />
+
+  <label>Availability</label><br />
+  <input type="text" formControlName="availability" /><br /><br />
+
+  <button type="submit">Save</button>
+</form>
+
+<hr />
+
+<h3>Skills I Teach</h3>
+
+<form [formGroup]="teachSkillForm" (ngSubmit)="addTeachSkill()">
+  <input
+    type="text"
+    placeholder="Skill name"
+    formControlName="skillName"
+  />
+
+  <select formControlName="level">
+    <option value="beginner">Beginner</option>
+    <option value="intermediate">Intermediate</option>
+    <option value="expert">Expert</option>
+  </select>
+
+  <button type="submit">Add Skill</button>
+</form>
+
+<ul>
+  <li *ngFor="let skill of user?.skillsTeach">
+    {{ skill.skill?.name }} ({{ skill.level }})
+  </li>
+</ul>
+
+<hr />
+
+<h3>Skills I Want to Learn</h3>
+
+<form [formGroup]="learnSkillForm" (ngSubmit)="addLearnSkill()">
+  <input
+    type="text"
+    placeholder="Skill name"
+    formControlName="skillName"
+  />
+  <button type="submit">Add Skill</button>
+</form>
+
+<ul>
+  <li *ngFor="let skill of user?.skillsLearn">
+    {{ skill.skill?.name }}
+  </li>
+</ul>

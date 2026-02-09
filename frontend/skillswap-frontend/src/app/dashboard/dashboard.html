@@ -1,3 +1,44 @@
-<h2>Dashboard</h2>
-<p>If you see this, auth guard is working.</p>
-<button (click)="logout()">Logout</button>
+<div class="dashboard">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <h3>SkillSwap</h3>
+
+    <nav>
+  <a routerLink="/dashboard">Dashboard</a>
+
+  <a routerLink="/profile">Profile</a>
+
+  <!-- Learner -->
+  <a routerLink="/my-learning">
+    My Learning
+  </a>
+
+  <!-- Teacher -->
+  <a routerLink="/my-teaching">
+    My Teaching
+  </a>
+
+  <!-- Common -->
+  <a routerLink="/sessions">Sessions</a>
+</nav>
+
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+
+    <!-- Top Bar -->
+    <header class="topbar">
+      <span>Welcome 👋</span>
+      <button (click)="logout()">Logout</button>
+    </header>
+
+    <!-- Page Content -->
+    <section class="content">
+      <h2>Dashboard</h2>
+      <p>This is the base dashboard layout.</p>
+    </section>
+
+  </main>
+</div>

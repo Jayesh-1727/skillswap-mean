@@ -14,5 +14,13 @@ export const routes: Routes = [
       import('./dashboard/dashboard').then(m => m.Dashboard)
   },
 
+  {
+  path: 'profile',
+  canActivate: [authGuard],
+  loadComponent: () =>
+    import('./profile/profile').then(m => m.Profile)
+},
+
+
   { path: '', redirectTo: 'login', pathMatch: 'full' }
 ];

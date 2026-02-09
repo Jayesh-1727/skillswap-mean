@@ -14,11 +14,6 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  role: {
-    type: String,
-    enum: ['learner', 'teacher', 'both'],
-    default: 'learner'
-  },
   bio: {
     type: String,
     default: ''
@@ -42,6 +37,7 @@ rating: {
   type: Number,
   default: 0
 }
+
 }, { timestamps: true });
 
 module.exports = mongoose.model('User', userSchema);

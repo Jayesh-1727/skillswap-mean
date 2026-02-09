@@ -1,15 +1,21 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../core/services/auth.service';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [],
+  standalone: true,
+  imports: [NgIf],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })
+
+
 export class Dashboard {
-constructor(
+role: string | null = null;
+
+  constructor(
     private auth: AuthService,
     private router: Router
   ) {}
