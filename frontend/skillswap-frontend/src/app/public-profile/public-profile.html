@@ -1,0 +1,19 @@
+<h2>{{ user?.name }}</h2>
+
+<p>{{ user?.bio }}</p>
+<p><strong>Availability:</strong> {{ user?.availability }}</p>
+
+<h3>Teaches</h3>
+
+<ul *ngIf="user?.skillsTeach?.length > 0; else noSkills">
+  <li *ngFor="let s of user.skillsTeach">
+    {{ s.skill.name }} ({{ s.level }})
+    <button type="button" (click)="requestSession(s.skill._id)">
+      Request Session
+    </button>
+  </li>
+</ul>
+
+<ng-template #noSkills>
+  <p>This user has not added any teaching skills yet.</p>
+</ng-template>

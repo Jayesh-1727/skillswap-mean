@@ -12,6 +12,16 @@ exports.sendRequest = async (req, res) => {
       status: 'pending'
     });
 
+    const user = await User.findById(req.user.id);
+
+if (!user.skillsTeach || user.skillsTeach.length === 0) {
+  return res.status(403).json({
+    message: 'Add at least one skill you can teach before requesting a session'
+  });
+}
+
+
+
     if (pendingCount >= 3) {
       return res.status(400).json({
         message: 'You already have 3 pending requests'

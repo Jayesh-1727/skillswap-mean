@@ -1,0 +1,25 @@
+<h2>Discover Skills</h2>
+
+<input
+  type="text"
+  placeholder="Search by skill..."
+  [formControl]="search"
+/>
+<button (click)="loadUsers()">Search</button>
+
+<hr />
+
+<div *ngFor="let user of users">
+  <h4>
+  <a [routerLink]="['/user', user._id]">
+    {{ user.name }}
+  </a>
+</h4>
+
+  <p><strong>Teaches:</strong></p>
+  <ul>
+    <li *ngFor="let s of user.skillsTeach">
+      {{ s.skill.name }} ({{ s.level }})
+    </li>
+  </ul>
+</div>

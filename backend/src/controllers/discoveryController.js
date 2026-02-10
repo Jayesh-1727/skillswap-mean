@@ -21,3 +21,28 @@ exports.searchTeachersBySkill = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+exports.searchTeachersBySkill = async (req, res) => {
+  const { skill } = req.query;
+
+  try {
+    // Find users who teach at least one skill
+    let users = await User.find({
+      'skillsTeach.0': { $exists: true }
+    }).populate('skillsTeach.skill');
+
+    // If skill query exists, filter by skill name
+    if (skill) {
+      users = users.filter(user =>
+        user.skillsTeach.some(s =>
+          s.skill.name.toLowerCase().includes(skill.toLowerCase())
+        )
+      );
+    }
+
+    res.json(users);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Failed to search teachers' });
+  }
+};

@@ -63,6 +63,26 @@ addLearnSkill(data: { skillName: string }) {
   );
 }
 
+discoverBySkill(skill: string = '') {
+  return this.http.get<any[]>(
+    `http://localhost:5000/api/discovery/search?skill=${skill}`
+  );
+}
+
+getPublicProfile(userId: string) {
+  return this.http.get<any>(
+    `http://localhost:5000/api/public/user/${userId}`
+  );
+}
+
+requestSession(teacherId: string, skillId: string) {
+  return this.http.post(
+    'http://localhost:5000/api/sessions/send',
+    { teacherId, skillId }
+  );
+}
+
+
 
   logout() {
   localStorage.removeItem('token');

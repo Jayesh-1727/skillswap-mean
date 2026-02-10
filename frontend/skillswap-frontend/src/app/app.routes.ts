@@ -21,6 +21,20 @@ export const routes: Routes = [
     import('./profile/profile').then(m => m.Profile)
 },
 
+{
+  path: 'discovery',
+  canActivate: [authGuard],
+  loadComponent: () =>
+    import('./discovery/discovery').then(m => m.Discovery)
+},
+
+{
+  path: 'user/:id',
+  canActivate: [authGuard],
+  loadComponent: () =>
+    import('./public-profile/public-profile').then(m => m.PublicProfile)
+},
+
 
   { path: '', redirectTo: 'login', pathMatch: 'full' }
 ];
