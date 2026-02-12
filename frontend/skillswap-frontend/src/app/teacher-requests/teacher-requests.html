@@ -1,0 +1,49 @@
+<h2>Incoming Session Requests</h2>
+
+<!-- Loading state -->
+<div *ngIf="requests === null">
+  <p>Loading...</p>
+</div>
+
+<!-- After data loads -->
+<div *ngIf="requests !== null">
+
+  <!-- Empty state -->
+  <div *ngIf="requests.length === 0">
+    <p>No session requests yet.</p>
+  </div>
+
+  <!-- List -->
+  <div *ngFor="let r of requests">
+  <hr />
+  <p><strong>Learner:</strong> {{ r.learner.name }}</p>
+  <p><strong>Skill:</strong> {{ r.skill.name }}</p>
+  <p><strong>Status:</strong> {{ r.status }}</p>
+  <!-- Show rating if exists -->
+<div *ngIf="r.rating">
+  <p>⭐ Rating: {{ r.rating }}</p>
+  <p>Review: {{ r.review }}</p>
+</div>
+
+
+  <!-- Pending actions -->
+<div *ngIf="r.status === 'pending'">
+  <button type="button" (click)="updateStatus(r._id, 'accepted')">
+    Accept
+  </button>
+
+  <button type="button" (click)="updateStatus(r._id, 'rejected')">
+    Reject
+  </button>
+</div>
+
+<!-- Accepted action -->
+<div *ngIf="r.status === 'accepted'">
+  <button type="button" (click)="markCompleted(r._id)">
+    Mark Completed
+  </button>
+</div>
+
+
+
+</div>

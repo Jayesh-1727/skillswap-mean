@@ -35,6 +35,23 @@ export const routes: Routes = [
     import('./public-profile/public-profile').then(m => m.PublicProfile)
 },
 
+{
+  path: 'teacher-requests',
+  canActivate: [authGuard],
+  loadComponent: () =>
+    import('./teacher-requests/teacher-requests')
+      .then(m => m.TeacherRequests)
+},
+
+
+{
+  path: 'my-requests',
+  canActivate: [authGuard],
+  loadComponent: () =>
+    import('./my-requests/my-requests')
+      .then(m => m.MyRequests)
+},
+
 
   { path: '', redirectTo: 'login', pathMatch: 'full' }
 ];

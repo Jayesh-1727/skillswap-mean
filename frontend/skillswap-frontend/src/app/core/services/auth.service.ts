@@ -82,6 +82,39 @@ requestSession(teacherId: string, skillId: string) {
   );
 }
 
+getTeacherRequests() {
+  return this.http.get<any[]>(
+    'http://localhost:5000/api/sessions/teacher'
+  );
+}
+
+updateRequestStatus(requestId: string, status: string) {
+  return this.http.patch(
+    `http://localhost:5000/api/sessions/${requestId}/status`,
+    { status }
+  );
+}
+
+getMyRequests() {
+  return this.http.get<any[]>(
+    'http://localhost:5000/api/sessions/mine'
+  );
+}
+
+markSessionCompleted(id: string) {
+  return this.http.patch(
+    `http://localhost:5000/api/sessions/${id}/complete`,
+    {}
+  );
+}
+
+submitFeedback(sessionId: string, rating: number, review: string) {
+  return this.http.post(
+    `http://localhost:5000/api/sessions/${sessionId}/feedback`,
+    { rating, review }
+  );
+}
+
 
 
   logout() {

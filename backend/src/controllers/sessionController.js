@@ -91,6 +91,22 @@ exports.updateRequestStatus = async (req, res) => {
   }
 };
 
+exports.getMyRequests = async (req, res) => {
+  try {
+    const requests = await SessionRequest.find({
+      learner: req.user.id
+    })
+      .populate('teacher', 'name')
+      .populate('skill', 'name')
+      .sort({ createdAt: -1 });
+
+    res.json(requests);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+
 exports.completeSession = async (req, res) => {
   try {
     const session = await SessionRequest.findById(req.params.id);
