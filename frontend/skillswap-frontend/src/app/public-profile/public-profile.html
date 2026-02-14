@@ -1,19 +1,72 @@
-<h2>{{ user?.name }}</h2>
+<div class="profile" *ngIf="user">
 
-<p>{{ user?.bio }}</p>
-<p><strong>Availability:</strong> {{ user?.availability }}</p>
+  <!-- Header Section -->
+  <div class="profile-header">
 
-<h3>Teaches</h3>
+    <div class="avatar">
+      {{ user.name.charAt(0).toUpperCase() }}
+    </div>
 
-<ul *ngIf="user?.skillsTeach?.length > 0; else noSkills">
-  <li *ngFor="let s of user.skillsTeach">
-    {{ s.skill.name }} ({{ s.level }})
-    <button type="button" (click)="requestSession(s.skill._id)">
-      Request Session
-    </button>
-  </li>
-</ul>
+    <div class="header-info">
+      <h1>{{ user.name }}</h1>
 
-<ng-template #noSkills>
-  <p>This user has not added any teaching skills yet.</p>
-</ng-template>
+      <div class="rating" *ngIf="user.rating">
+        <span *ngFor="let star of getStars(user.rating)">
+          <i class="star">★</i>
+        </span>
+        <span class="rating-number">
+          {{ user.rating }}
+        </span>
+      </div>
+
+      <span class="availability-badge" *ngIf="user.availability">
+        {{ user.availability }}
+      </span>
+    </div>
+
+  </div>
+
+  <!-- Bio -->
+  <div class="section">
+    <h3>About</h3>
+    <p class="bio">
+      {{ user.bio || 'No bio provided yet.' }}
+    </p>
+  </div>
+
+  <!-- Skills -->
+  <div class="section">
+    <h3>Skills Offered</h3>
+
+    <div *ngIf="user.skillsTeach?.length > 0; else noSkills"
+         class="skills-grid">
+
+      <div class="skill-card"
+           *ngFor="let s of user.skillsTeach">
+
+        <div class="skill-name">
+          {{ s.skill.name }}
+        </div>
+
+        <div class="skill-level">
+          {{ s.level }}
+        </div>
+
+        <button
+          class="request-btn"
+          (click)="requestSession(s.skill._id)">
+          Request Session
+        </button>
+
+      </div>
+
+    </div>
+
+    <ng-template #noSkills>
+      <p class="empty">
+        This user has not added any teaching skills yet.
+      </p>
+    </ng-template>
+  </div>
+
+</div>

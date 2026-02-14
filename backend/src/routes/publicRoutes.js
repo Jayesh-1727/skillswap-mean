@@ -17,7 +17,8 @@ router.get('/user/:id', protect, async (req, res) => {
   name: user.name,
   bio: user.bio,
   availability: user.availability,
-  skillsTeach: user.skillsTeach
+  skillsTeach: user.skillsTeach,
+  rating: user.rating,
 });
   } catch (err) {
     res.status(500).json({ message: 'Failed to load user profile' });

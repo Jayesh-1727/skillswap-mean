@@ -23,11 +23,16 @@ export class PublicProfile implements OnInit {
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id')!;
     this.auth.getPublicProfile(id).subscribe(data => {
-      console.log('PUBLIC PROFILE DATA', data);
-      this.user = data;
+      
+      this.user = data; // Calculate stars based on rating
       this.cdr.detectChanges(); // 🔥 THIS is the key line
     });
   }
+
+  getStars(rating: any) {
+  const numeric = Number(rating);
+  return Array(Math.round(numeric)).fill(0);
+}
 
   requestSession(skillId: string) {
     this.auth.requestSession(this.user._id, skillId).subscribe({
@@ -35,4 +40,7 @@ export class PublicProfile implements OnInit {
       error: err => alert(err.error?.message || 'Request failed')
     });
   }
+
+  
+
 }
