@@ -128,6 +128,11 @@ sendMessage(sessionId: string, text: string) {
   );
 }
 
+getSessionHistory() {
+  return this.http.get<any[]>(
+    'http://localhost:5000/api/sessions/history'
+  );
+}
 
 
   logout() {

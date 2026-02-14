@@ -2,49 +2,80 @@
 
   <!-- Sidebar -->
   <aside class="sidebar">
-    <h3>SkillSwap</h3>
+    <div class="logo">
+      <h2>SkillSwap</h2>
+    </div>
 
     <nav>
-  <a routerLink="/dashboard">Dashboard</a>
+      <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+      <a routerLink="/profile" routerLinkActive="active">Profile</a>
+      <a routerLink="/discovery" routerLinkActive="active">Discover</a>
+      <a routerLink="/teacher-requests" routerLinkActive="active">Session Inbox</a>
+      <a routerLink="/my-requests" routerLinkActive="active">My Requests</a>
+    </nav>
 
-  <a routerLink="/profile">Profile</a>
-
-  <a routerLink="/discovery">Discover</a>
-
-  <a routerLink="/teacher-requests">Session Inbox</a>
-
-  <a routerLink="/my-requests">My Requests</a>
-
-  <!-- Learner -->
-  <a routerLink="/my-learning">
-    My Learning
-  </a>
-
-  <!-- Teacher -->
-  <a routerLink="/my-teaching">
-    My Teaching
-  </a>
-
-  <!-- Common -->
-  <a routerLink="/sessions">Sessions</a>
-</nav>
-
+    <div class="sidebar-footer">
+      <button (click)="logout()">Logout</button>
+    </div>
   </aside>
 
   <!-- Main Content -->
   <main class="main-content">
 
-    <!-- Top Bar -->
     <header class="topbar">
-      <span>Welcome 👋</span>
-      <button (click)="logout()">Logout</button>
+      <h1>Welcome Back 👋</h1>
+      <p>Let’s continue learning and teaching today.</p>
     </header>
 
-    <!-- Page Content -->
-    <section class="content">
-      <h2>Dashboard</h2>
-      <p>This is the base dashboard layout.</p>
-    </section>
+    <section class="stats">
+
+  <div class="card clickable" routerLink="/teacher-requests">
+    <h3>📥 Inbox</h3>
+    <h1>{{ inboxCount }}</h1>
+    <p>Incoming requests</p>
+  </div>
+
+  <div class="card clickable" routerLink="/my-requests">
+    <h3>📤 My Requests</h3>
+    <h1>{{ myRequestCount }}</h1>
+    <p>Requests sent</p>
+  </div>
+
+  <div class="card clickable" routerLink="/discovery">
+    <h3>🔍 Discover</h3>
+    <h1>Explore</h1>
+    <p>Find new skills</p>
+  </div>
+
+</section>
+
+
+
+<section class="activity">
+  <h2>Recent Activity</h2>
+
+  <div *ngIf="recentSessions.length === 0">
+    <p>No recent activity yet.</p>
+  </div>
+
+  <div *ngFor="let s of recentSessions" class="activity-card">
+    <p>
+      <strong>{{ s.skill.name }}</strong>
+      session with
+      <strong>
+        {{ s.teacher?.name || s.learner?.name }}
+      </strong>
+    </p>
+
+    <p>Status:
+      <span class="badge" [ngClass]="s.status">
+        {{ s.status }}
+      </span>
+    </p>
+  </div>
+</section>
+
+
 
   </main>
 </div>
