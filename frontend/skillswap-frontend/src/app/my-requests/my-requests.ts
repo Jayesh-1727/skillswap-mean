@@ -1,10 +1,12 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { AuthService } from '../core/services/auth.service';
+import { RouterLink } from '@angular/router';
+
 @Component({
   selector: 'app-my-requests',
   standalone: true,
-  imports: [NgFor, NgIf],
+  imports: [NgFor, NgIf, RouterLink],
   templateUrl: './my-requests.html',
   styleUrl: './my-requests.css',
 })

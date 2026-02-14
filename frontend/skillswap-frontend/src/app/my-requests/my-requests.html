@@ -15,6 +15,15 @@
   <p><strong>Skill:</strong> {{ r.skill.name }}</p>
   <p><strong>Status:</strong> {{ r.status }}</p>
 
+    <div *ngIf="r.status === 'accepted'">
+  <button
+    type="button"
+    [routerLink]="['/chat', r._id]">
+    Open Chat
+  </button>
+</div>
+
+
   <!-- Show feedback form only if completed and not rated -->
   <div *ngIf="r.status === 'completed' && !r.rating">
     <label>Rating (1–5):</label>

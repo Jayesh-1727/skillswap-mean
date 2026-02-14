@@ -52,6 +52,14 @@ export const routes: Routes = [
       .then(m => m.MyRequests)
 },
 
+{
+  path: 'chat/:sessionId',
+  canActivate: [authGuard],
+  loadComponent: () =>
+    import('./chat/chat')
+      .then(m => m.Chat)
+},
+
 
   { path: '', redirectTo: 'login', pathMatch: 'full' }
 ];

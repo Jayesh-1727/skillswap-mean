@@ -115,6 +115,19 @@ submitFeedback(sessionId: string, rating: number, review: string) {
   );
 }
 
+getMessages(sessionId: string) {
+  return this.http.get<any[]>(
+    `http://localhost:5000/api/messages/${sessionId}`
+  );
+}
+
+sendMessage(sessionId: string, text: string) {
+  return this.http.post(
+    'http://localhost:5000/api/messages/send',
+    { sessionId, text }
+  );
+}
+
 
 
   logout() {

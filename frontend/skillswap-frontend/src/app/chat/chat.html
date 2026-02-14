@@ -1,0 +1,30 @@
+<h2>Chat</h2>
+
+<div *ngIf="messages === null">
+  <p>Loading messages...</p>
+</div>
+
+<div *ngIf="messages !== null">
+
+  <div *ngIf="messages.length === 0">
+    <p>No messages yet.</p>
+  </div>
+
+  <div *ngFor="let m of messages">
+    <hr />
+    <p><strong>{{ m.sender.name }}:</strong> {{ m.text }}</p>
+    <small>{{ m.createdAt | date:'short' }}</small>
+  </div>
+
+  <hr />
+
+  <input
+    type="text"
+    [(ngModel)]="newMessage"
+    placeholder="Type a message..." />
+
+  <button type="button" (click)="send()">
+    Send
+  </button>
+
+</div>
