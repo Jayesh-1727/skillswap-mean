@@ -1,25 +1,65 @@
-<h2>Discover Skills</h2>
+<div class="discovery">
 
-<input
-  type="text"
-  placeholder="Search by skill..."
-  [formControl]="search"
-/>
-<button (click)="loadUsers()">Search</button>
+  <div class="page-header">
+    <h2>Discover Talent</h2>
+    <p>Connect. Learn. Grow.</p>
+  </div>
 
-<hr />
+  <div class="search-wrapper">
+    <input
+      type="text"
+      placeholder="Search skills (e.g. JavaScript, Design, Python)"
+      [formControl]="search"
+    />
+  </div>
 
-<div *ngFor="let user of users">
-  <h4>
-  <a [routerLink]="['/user', user._id]">
-    {{ user.name }}
-  </a>
-</h4>
+  <div *ngIf="users.length === 0" class="empty">
+    No teachers found.
+  </div>
 
-  <p><strong>Teaches:</strong></p>
-  <ul>
-    <li *ngFor="let s of user.skillsTeach">
-      {{ s.skill.name }} ({{ s.level }})
-    </li>
-  </ul>
+  <div class="card-grid">
+
+    <div class="teacher-card" *ngFor="let user of users">
+
+      <!-- Avatar -->
+      <div class="avatar">
+        {{ user.name.charAt(0).toUpperCase() }}
+      </div>
+
+      <!-- Name -->
+      <h3>{{ user.name }}</h3>
+
+      <!-- Rating -->
+      <div class="rating" *ngIf="user.rating">
+        <span *ngFor="let star of getStars(user.rating)">
+          <i class="star">★</i>
+        </span>
+        <span class="rating-number">
+          {{ user.rating }}
+        </span>
+      </div>
+
+      <!-- Bio -->
+      <p class="bio">
+        {{ user.bio || 'Passionate about teaching and sharing knowledge.' }}
+      </p>
+
+      <!-- Skills -->
+      <div class="skills">
+        <span class="skill-badge"
+              *ngFor="let s of user.skillsTeach">
+          {{ s.skill.name }}
+        </span>
+      </div>
+
+      <!-- CTA -->
+      <a
+        [routerLink]="['/user', user._id]"
+        class="profile-btn">
+        View Profile →
+      </a>
+
+    </div>
+
+  </div>
 </div>

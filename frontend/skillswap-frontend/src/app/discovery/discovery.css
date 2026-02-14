@@ -1,0 +1,146 @@
+.discovery {
+  padding: 60px;
+  background: linear-gradient(135deg, #eef2ff, #f8fafc);
+  min-height: 100vh;
+}
+
+/* Header */
+.page-header h2 {
+  font-size: 32px;
+  margin: 0;
+}
+
+.page-header p {
+  color: #6b7280;
+  margin-bottom: 40px;
+  font-size: 16px;
+}
+
+/* Search */
+.search-wrapper {
+  margin-bottom: 40px;
+}
+
+.search-wrapper input {
+  width: 100%;
+  padding: 14px 18px;
+  border-radius: 14px;
+  border: 1px solid #e5e7eb;
+  font-size: 15px;
+  transition: 0.3s;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.search-wrapper input:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 6px 20px rgba(37,99,235,0.2);
+}
+
+/* Grid */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+/* Card */
+.teacher-card {
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.07);
+  transition: 0.4s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.teacher-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 25px 50px rgba(0,0,0,0.12);
+}
+
+/* Avatar */
+.avatar {
+  width: 55px;
+  height: 55px;
+  background: linear-gradient(135deg, #2563eb, #4f46e5);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+/* Name */
+.teacher-card h3 {
+  margin: 0;
+  font-size: 20px;
+}
+
+/* Rating */
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 14px;
+}
+
+.star {
+  color: #fbbf24;
+  font-size: 22px;
+}
+
+.rating-number {
+  margin-left: 6px;
+  color: #6b7280;
+}
+
+/* Bio */
+.bio {
+  font-size: 14px;
+  color: #6b7280;
+  min-height: 40px;
+}
+
+/* Skills */
+.skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.skill-badge {
+  background: #e0e7ff;
+  color: #3730a3;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* Button */
+.profile-btn {
+  margin-top: auto;
+  padding: 10px 14px;
+  background: #111827;
+  color: white;
+  border-radius: 10px;
+  text-align: center;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.profile-btn:hover {
+  background: #2563eb;
+}
+
+/* Empty */
+.empty {
+  margin-top: 50px;
+  text-align: center;
+  color: #6b7280;
+}
