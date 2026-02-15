@@ -1,17 +1,18 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { NgFor, NgIf } from '@angular/common';
+import { NgFor, NgIf, NgClass } from '@angular/common';
 import { AuthService } from '../core/services/auth.service';
 import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-my-requests',
   standalone: true,
-  imports: [NgFor, NgIf, RouterLink],
+  imports: [NgFor, NgIf, RouterLink, NgClass],
   templateUrl: './my-requests.html',
   styleUrl: './my-requests.css',
 })
 export class MyRequests {
   requests: any[] | null = null;
+selectedRatings: { [key: string]: number } = {};
 
   constructor(
     private auth: AuthService,
@@ -47,6 +48,13 @@ reload() {
       this.requests = data;
       this.cdr.detectChanges();
     });
+}
+
+
+
+getStars(rating: any) {
+  const numeric = Number(rating);
+  return Array(Math.round(numeric)).fill(0);
 }
 
 }
