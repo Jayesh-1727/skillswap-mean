@@ -1,0 +1,146 @@
+.requests-page {
+  padding: 60px;
+  background: #f9fafb;
+  min-height: 100vh;
+}
+
+.requests-page h2 {
+  margin-bottom: 40px;
+  font-size: 28px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.loading,
+.empty {
+  text-align: center;
+  color: #6b7280;
+}
+
+/* Grid */
+.request-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 28px;
+}
+
+/* Card */
+.request-card {
+  background: white;
+  border-radius: 20px;
+  padding: 28px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  transition: 0.3s ease;
+  border: 1px solid #f3f4f6;
+}
+
+.request-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+}
+
+/* Header */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-header h3 {
+  margin: 0;
+  font-size: 18px;
+  color: #111827;
+}
+
+.learner {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+/* Status badge */
+.status {
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.status.pending {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.status.accepted {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.status.completed {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.status.rejected {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+/* Review */
+.review {
+  background: #f9fafb;
+  padding: 14px;
+  border-radius: 14px;
+  font-size: 14px;
+}
+
+.stars {
+  color: #fbbf24;
+  margin-bottom: 6px;
+}
+
+/* Buttons */
+.actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 8px 14px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  transition: 0.2s ease;
+}
+
+.accept {
+  background: #10b981;
+  color: white;
+}
+
+.reject {
+  background: #ef4444;
+  color: white;
+}
+
+.complete {
+  background: #111827;
+  color: white;
+}
+
+.chat {
+  background: #2563eb;
+  color: white;
+  text-decoration: none;
+}
+
+.btn:hover {
+  transform: scale(1.05);
+  opacity: 0.95;
+}

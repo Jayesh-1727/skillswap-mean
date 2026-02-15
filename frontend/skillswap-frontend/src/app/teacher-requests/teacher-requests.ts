@@ -1,11 +1,11 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { NgFor, NgIf } from '@angular/common';
+import { NgFor, NgIf, NgClass } from '@angular/common';
 import { AuthService } from '../core/services/auth.service';
 import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-teacher-requests',
-  imports: [NgFor, NgIf, RouterLink],
+  imports: [NgFor, NgIf, NgClass, RouterLink],
   templateUrl: './teacher-requests.html',
   styleUrl: './teacher-requests.css',
   standalone: true,
@@ -70,6 +70,10 @@ markCompleted(id: string) {
     });
 }
 
+getStars(rating: any) {
+  const numeric = Number(rating);
+  return Array(Math.round(numeric)).fill(0);
+}
 
 
 }

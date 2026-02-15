@@ -1,56 +1,85 @@
-<h2>Incoming Session Requests</h2>
+<div class="requests-page">
 
-<!-- Loading state -->
-<div *ngIf="requests === null">
-  <p>Loading...</p>
-</div>
+  <h2>Incoming Session Requests</h2>
 
-<!-- After data loads -->
-<div *ngIf="requests !== null">
-
-  <!-- Empty state -->
-  <div *ngIf="requests.length === 0">
-    <p>No session requests yet.</p>
+  <!-- Loading -->
+  <div *ngIf="requests === null" class="loading">
+    Loading requests...
   </div>
 
-  <!-- List -->
-  <div *ngFor="let r of requests">
-  <hr />
-  <p><strong>Learner:</strong> {{ r.learner.name }}</p>
-  <p><strong>Skill:</strong> {{ r.skill.name }}</p>
-  <p><strong>Status:</strong> {{ r.status }}</p>
-  <!-- Show rating if exists -->
-<div *ngIf="r.rating">
-  <p>⭐ Rating: {{ r.rating }}</p>
-  <p>Review: {{ r.review }}</p>
-</div>
+  <!-- Empty -->
+  <div *ngIf="requests !== null && requests.length === 0"
+       class="empty">
+    No session requests yet.
+  </div>
 
+  <!-- Cards -->
+  <div class="request-grid"
+       *ngIf="requests !== null && requests.length > 0">
 
-  <!-- Pending actions -->
-<div *ngIf="r.status === 'pending'">
-  <button type="button" (click)="updateStatus(r._id, 'accepted')">
-    Accept
-  </button>
+    <div class="request-card"
+         *ngFor="let r of requests">
 
-  <button type="button" (click)="updateStatus(r._id, 'rejected')">
-    Reject
-  </button>
-</div>
+      <!-- Header -->
+      <div class="card-header">
+        <div>
+          <h3>{{ r.skill.name }}</h3>
+          <p class="learner">
+            Learner: {{ r.learner.name }}
+          </p>
+        </div>
 
-<!-- Accepted action -->
-<div *ngIf="r.status === 'accepted'">
-  <button type="button" (click)="markCompleted(r._id)">
-    Mark Completed
-  </button>
-</div>
+        <span class="status"
+              [ngClass]="r.status">
+          {{ r.status }}
+        </span>
+      </div>
 
-<div *ngIf="r.status === 'accepted'">
-  <button
-    type="button"
-    [routerLink]="['/chat', r._id]">
-    Open Chat
-  </button>
-</div>
+      <!-- Rating -->
+      <div *ngIf="r.rating" class="review">
+        <div class="stars">
+          <span *ngFor="let star of getStars(r.rating)">★</span>
+        </div>
+        <p>{{ r.review }}</p>
+      </div>
 
+      <!-- Actions -->
+      <div class="actions">
+
+        <!-- Pending -->
+        <ng-container *ngIf="r.status === 'pending'">
+          <button
+            class="btn accept"
+            (click)="updateStatus(r._id, 'accepted')">
+            Accept
+          </button>
+
+          <button
+            class="btn reject"
+            (click)="updateStatus(r._id, 'rejected')">
+            Reject
+          </button>
+        </ng-container>
+
+        <!-- Accepted -->
+        <ng-container *ngIf="r.status === 'accepted'">
+          <button
+            class="btn complete"
+            (click)="markCompleted(r._id)">
+            Mark Completed
+          </button>
+
+          <a
+            class="btn chat"
+            [routerLink]="['/chat', r._id]">
+            Open Chat
+          </a>
+        </ng-container>
+
+      </div>
+
+    </div>
+
+  </div>
 
 </div>
