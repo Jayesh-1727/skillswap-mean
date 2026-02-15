@@ -1,67 +1,111 @@
-<h2>My Profile</h2>
+<div class="profile-page">
 
-<!-- Display Info -->
-<div *ngIf="user && user.name">
-  <p><strong>Name:</strong> {{ user?.name }}</p>
-  <p><strong>Email:</strong> {{ user?.email }}</p>
+  <h2>My Profile</h2>
+
+  <!-- Profile Header Card -->
+  <div class="profile-card" *ngIf="user && user.name">
+
+    <div class="profile-header">
+      <div class="avatar">
+        {{ user.name.charAt(0).toUpperCase() }}
+      </div>
+
+      <div>
+        <h3>{{ user.name }}</h3>
+        <p class="email">{{ user.email }}</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Edit Profile -->
+  <div class="section-card">
+    <h3>Edit Profile</h3>
+
+    <form [formGroup]="editForm" (ngSubmit)="save()" class="form-grid">
+
+      <div class="form-group">
+        <label>Bio</label>
+        <textarea formControlName="bio"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Availability</label>
+        <input type="text" formControlName="availability" />
+      </div>
+
+      <button type="submit" class="btn primary">
+        Save Changes
+      </button>
+
+    </form>
+  </div>
+
+  <!-- Skills I Teach -->
+  <div class="section-card">
+    <h3>Skills I Teach</h3>
+
+    <form [formGroup]="teachSkillForm"
+          (ngSubmit)="addTeachSkill()"
+          class="inline-form">
+
+      <input
+        type="text"
+        placeholder="Skill name"
+        formControlName="skillName"
+      />
+
+      <select formControlName="level">
+        <option value="beginner">Beginner</option>
+        <option value="intermediate">Intermediate</option>
+        <option value="expert">Expert</option>
+      </select>
+
+      <button type="submit" class="btn primary">
+        Add
+      </button>
+
+    </form>
+
+    <div class="skill-list">
+      <div class="skill-badge"
+           *ngFor="let skill of user?.skillsTeach">
+        {{ skill.skill?.name }}
+        <span class="level">
+          {{ skill.level }}
+        </span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Skills I Want to Learn -->
+  <div class="section-card">
+    <h3>Skills I Want to Learn</h3>
+
+    <form [formGroup]="learnSkillForm"
+          (ngSubmit)="addLearnSkill()"
+          class="inline-form">
+
+      <input
+        type="text"
+        placeholder="Skill name"
+        formControlName="skillName"
+      />
+
+      <button type="submit" class="btn primary">
+        Add
+      </button>
+
+    </form>
+
+    <div class="skill-list">
+      <div class="skill-badge learn"
+           *ngFor="let skill of user?.skillsLearn">
+        {{ skill.skill?.name }}
+      </div>
+    </div>
+
+  </div>
+
 </div>
-
-<hr />
-
-<!-- Edit Form -->
-<form [formGroup]="editForm" (ngSubmit)="save()">
-  <h3>Edit Profile</h3>
-
-  <label>Bio</label><br />
-  <textarea formControlName="bio"></textarea><br /><br />
-
-  <label>Availability</label><br />
-  <input type="text" formControlName="availability" /><br /><br />
-
-  <button type="submit">Save</button>
-</form>
-
-<hr />
-
-<h3>Skills I Teach</h3>
-
-<form [formGroup]="teachSkillForm" (ngSubmit)="addTeachSkill()">
-  <input
-    type="text"
-    placeholder="Skill name"
-    formControlName="skillName"
-  />
-
-  <select formControlName="level">
-    <option value="beginner">Beginner</option>
-    <option value="intermediate">Intermediate</option>
-    <option value="expert">Expert</option>
-  </select>
-
-  <button type="submit">Add Skill</button>
-</form>
-
-<ul>
-  <li *ngFor="let skill of user?.skillsTeach">
-    {{ skill.skill?.name }} ({{ skill.level }})
-  </li>
-</ul>
-
-<hr />
-
-<h3>Skills I Want to Learn</h3>
-
-<form [formGroup]="learnSkillForm" (ngSubmit)="addLearnSkill()">
-  <input
-    type="text"
-    placeholder="Skill name"
-    formControlName="skillName"
-  />
-  <button type="submit">Add Skill</button>
-</form>
-
-<ul>
-  <li *ngFor="let skill of user?.skillsLearn">
-    {{ skill.skill?.name }}
-  </li>
-</ul>
