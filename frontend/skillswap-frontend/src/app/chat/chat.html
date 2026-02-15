@@ -1,30 +1,41 @@
-<h2>Chat</h2>
+<div class="chat-container">
 
-<div *ngIf="messages === null">
-  <p>Loading messages...</p>
-</div>
-
-<div *ngIf="messages !== null">
-
-  <div *ngIf="messages.length === 0">
-    <p>No messages yet.</p>
+  <div class="chat-header">
+    <h2>Session Chat</h2>
   </div>
 
-  <div *ngFor="let m of messages">
-    <hr />
-    <p><strong>{{ m.sender.name }}:</strong> {{ m.text }}</p>
-    <small>{{ m.createdAt | date:'short' }}</small>
+  <div class="chat-messages" *ngIf="messages !== null">
+
+    <div *ngIf="messages.length === 0" class="empty">
+      No messages yet. Start the conversation!
+    </div>
+
+    <div *ngFor="let m of messages"
+         class="message"
+         [ngClass]="{
+           'my-message': m.sender._id === currentUserId,
+           'other-message': m.sender._id !== currentUserId
+         }">
+
+      <div class="bubble">
+        <p>{{ m.text }}</p>
+        <span class="time">
+          {{ m.createdAt | date:'shortTime' }}
+        </span>
+      </div>
+
+    </div>
+
   </div>
 
-  <hr />
-
-  <input
-    type="text"
-    [(ngModel)]="newMessage"
-    placeholder="Type a message..." />
-
-  <button type="button" (click)="send()">
-    Send
-  </button>
+  <div class="chat-input">
+    <input
+      type="text"
+      [(ngModel)]="newMessage"
+      placeholder="Type a message..."
+      (keyup.enter)="send()"
+    />
+    <button (click)="send()">Send</button>
+  </div>
 
 </div>
